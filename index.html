@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Star Wars RPG</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- JQuery $ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
+    <script src="assets/javascript/game.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1 class="title">clash of legends</h1>
+    </header>
+    
+    <main>
+        <!-- div holds games instructions that appear on click -->
+        <div class="bannerBar">
+            <h2 class="banner">choose your legend to begin:</h2>
+            <h2 class="banner2 invisible">choose your first enemy:</h2>
+            <h2 class="banner3 invisible">click attack to begin the battle:</h2>
+        </div>
+
+        <!-- top div that holds fighter options -->
+        <div class="fighterStart">
+            <!-- each figure holds initial data for fighters -->
+            <figure class="legend luke">            
+                <img src="assets/images/nWC25HX79HEF1.jpg" alt="luke skywalker looking BA with an explosion in the background">
+                <br>
+                <figcaption>
+                    <p class="lukeName"></p>
+                    <p class="lukeHealth"></p>
+                    <p class="lukeAttack"></p>
+                </figcaption>
+            </figure>
+            <figure class="legend vader">            
+                <img src="assets/images/images.jpg" alt="darth vader">
+                <br>
+                <figcaption>
+                    <p class="vaderName"></p>
+                    <p class="vaderHealth"></p>
+                    <p class="vaderAttack"></p>
+                </figcaption>
+            </figure>
+            <figure class="legend windu">            
+                <img src="assets/images/download.jpg" alt="mace windu">
+                <br>
+                <figcaption>
+                    <p class="winduName"></p>
+                    <p class="winduHealth"></p>
+                    <p class="winduAttack"></p>
+                </figcaption>
+            </figure>
+            <figure class="legend revan">            
+                <img src="assets/images/download-1.jpg" alt="darth revan">
+                <br>
+                <figcaption>
+                    <p class="revanName"></p>
+                    <p class="revanHealth"></p>
+                    <p class="revanAttack"></p>
+                </figcaption>
+            </figure>
+        </div>
+
+        <!-- div where the fighters move to after selected -->
+        <div class="battleArea">
+            <div class="userArea"></div>
+            <div class="defenderArea"></div>
+        </div>
+
+        <!-- attack button, appears when needed -->
+        <div class="button">
+            <button type="button" class="attackButton invisible">Attack</button>
+        </div>
+
+    </main>
+
+</body>
+</html>

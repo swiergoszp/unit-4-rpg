@@ -1,0 +1,79 @@
+/* star wars themed font */
+@font-face {
+    font-family: StarWars;
+    src: url(../star_jedi/starjout/Starjout.ttf);
+}
+/* background image for page */
+body {
+    background-image: url(../images/Star-Wars-Background-Logo.jpg);
+    background-size: cover;
+    background-position: center bottom 140%;
+}
+/* div that contains title */
+header {
+    text-align: center;
+}
+/* title of page */
+.title {
+    margin: 20px;
+    color: rgb(41,195,180);
+    font-size: 200%;
+    font-family: StarWars
+}
+/* div that holds all content */
+/* main {
+    
+} */
+/* div that holds the banners */
+.bannerBar {
+    display: flex;
+    flex-flow: row wrap;
+    font-family: StarWars;
+}
+/* banner above fighter start */
+.banner , .banner3 {
+    color: rgb(41,195,180);
+    margin: 0 0 10px 50px;
+}
+/* banner above fighter start */
+.banner2 {
+    color: rgb(176,15,71);
+    margin: 0 0 10px 50px;
+}
+/* div that contains fighers at beginning */
+.fighterStart {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+/* adjust light side fighters */
+.luke , .windu {
+    color: rgb(41,195,180);
+    font-family: StarWars;
+}
+/* adjust dark side fighters */
+.vader , .revan {
+    color: rgb(176,15,71);
+    font-family: StarWars;
+}
+/* div that holds player and defender boxes */
+.battleArea {
+    display: flex;
+    justify-content: space-between;
+    margin: 40px 80px 0 80px;
+}
+/* div that contains attack button */
+.button {
+    display: flex;
+    justify-content: center;
+}
+/* adjusts the attack button */
+.attackButton {
+    text-align: center;
+    color: rgb(176,15,71);
+    font-family: StarWars
+}
+/* you guessed it, makes things invisible */
+.invisible {
+    opacity: 0;
+}
