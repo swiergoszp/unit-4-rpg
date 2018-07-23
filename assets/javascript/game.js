@@ -8,29 +8,29 @@ $(document).ready(function() {
         "Luke Skywalker": {
             image: "assets/images/luke.jpg" ,
             name: "Luke Skywalker",
-            health: 120,
-            attack: 20,
+            health: 100,
+            attack: 15,
             counterAttack: 5    
         },
         "Darth Vader": {
             image:"assets/images/vader.jpg" ,
             name: "Darth Vader",
             health: 140,
-            attack: 15,
+            attack: 10,
             counterAttack: 10
         },
         "Mace Windu": {
             image:"assets/images/windu.jpg" ,
             name: "Mace Windu",
             health: 160,
-            attack: 10,
+            attack: 5,
             counterAttack: 15
         },
         "Darth Revan": {
             image:"assets/images/revan.jpg" ,
             name: "Darth Revan",
             health: 180,
-            attack: 5,
+            attack: 7,
             counterAttack: 20
         }
     };
@@ -44,7 +44,7 @@ $(document).ready(function() {
     var killCount = 0;
 
 //******************************************************************************//
-// "Game Initialize" Phase
+// Global Functions
 //******************************************************************************//
 
     function initializeCharacters(character, renderArea) {
@@ -64,13 +64,7 @@ $(document).ready(function() {
             initializeCharacters(legends[key], ".fighterStart");
         }
     };
-
-    initializeGame();
-
-//******************************************************************************//
-//
-//******************************************************************************//
-
+    
     // updates character placement
     function updateCharacter(charObj, areaRender) {
         $(areaRender).empty();
@@ -84,31 +78,42 @@ $(document).ready(function() {
         }
     };
 
+    // handles rendering game messages
+    function renderMessage(message) {
+        var gameMessageSet = $(".game-message");
+        var newMessage = $("<div>").text(message);
+        gameMessageSet.append(newMessage);
+    };
+
+
     // Function which handles restarting the game after victory or defeat.
     function restartGame(resultMessage) {
         // When the 'Restart' button is clicked, reload the page.
-        var restart = $("<button>Restart</button>").click(function() {
+        var restart = $("<button class='restartButton'>Restart</button>").click(function() {
             location.reload();
         });
 
-        // Build div that will display the victory/defeat message.
         var gameState = $("<div>").text(resultMessage);
-
-        // Render the restart button and victory/defeat message to the page.
-        $(".button").append(gameState);
+        $(".banner2").append(gameState);
         $(".button").append(restart);
     };
+
+    // Function to clear the game message section
+    function clearMessage() {
+        var gameMessage = $(".game-message");
+        gameMessage.text("");
+    };
+
+
+    initializeGame();
 
 //******************************************************************************//
 // Click Functions
 //******************************************************************************//
 
-     // On click event for selecting our character.
+    // select your legend
     $(".fighterStart").on("click", ".character", function() {
-        // Saving the clicked character's name.
         var name = $(this).attr("data-name");
-
-        // If a player character has not yet been chosen...
         if (!userLegend) {
             // We populate attacker with the selected character's information.
             userLegend = legends[name];
@@ -117,7 +122,7 @@ $(document).ready(function() {
                 if (key !== name) {
                 arrLegends.push(legends[key]);
                 }
-            }
+            };
 
             $(".fighterStart").hide();
             $(".banner").addClass("invisible");
@@ -129,19 +134,75 @@ $(document).ready(function() {
         }
     });
 
-    // Creates an on click event for each enemy.
+    // select enemy legend
     $(".challengers").on("click", ".character", function() {
-        // Saving the opponent's name.
         var name = $(this).attr("data-name");
-
-        // If there is no defender, the clicked enemy will become the defender.
         if ($(".defenderArea").children().length === 0) {
             enemyLegend = legends[name];
             updateCharacter(enemyLegend, ".defenderArea");
             $(this).remove();
             $(".banner2").addClass("invisible");
             $(".banner3").removeClass("invisible");
-            $("attackButton").removeClass("invisible");
+            $(".attackButton").removeClass("invisible");
+        }
+    });
+
+    // battle logic
+    $(".attackButton").on("click", function() {
+        // If there is a defender, combat will occur.
+        if ($(".defenderArea").children().length !== 0) {
+            // Creates messages for our attack and our opponents counter attack.
+            var attackMessage = "You attacked " + enemyLegend.name + " for " + userLegend.attack * turnCounter + " damage.";
+            var counterAttackMessage = enemyLegend.name + " attacked you back for " + enemyLegend.counterAttack + " damage.";
+            clearMessage();
+
+            // Reduce defender's health by your attack value.
+            enemyLegend.health -= userLegend.attack * turnCounter;
+
+            // If the enemy still has health..
+            if (enemyLegend.health > 0) {
+                // Render the enemy's updated character card.
+                updateCharacter(enemyLegend, ".defenderArea");
+
+                // Render the combat messages.
+                renderMessage(attackMessage);
+                renderMessage(counterAttackMessage);
+
+                // Reduce your health by the opponent's attack value.
+                userLegend.health -= enemyLegend.counterAttack;
+
+                // Render the player's updated character card.
+                updateCharacter(userLegend, ".userArea");
+
+                // If you have less than zero health the game ends.
+                // We call the restartGame function to allow the user to restart the game and play again.
+                if (userLegend.health <= 0) {
+                    clearMessage();
+                    restartGame("You have been defeated...GAME OVER!!!");
+                    $(".attackButton").off("click");
+                };
+            }
+                else {
+                    // If the enemy has less than zero health they are defeated.
+                    // Remove your opponent's character card.
+                    $(".defenderArea").empty();
+
+                    var gameStateMessage = "You have defeated " + enemyLegend.name + ", you can choose to fight another enemy.";
+                    renderMessage(gameStateMessage);
+
+                    // Increment your kill count.
+                    killCount++;
+
+                    // If you have killed all of your opponents you win.
+                    // Call the restartGame function to allow the user to restart the game and play again.
+                    if (killCount >= arrLegends.length) {
+                    clearMessage();
+                    $(".attackButton").off("click");
+                    restartGame("You Won!!!! GAME OVER!!!");
+                    };
+                };
+        // Increment turn counter. This is used for determining how much damage the player does.
+        turnCounter++;
         }
     });
 

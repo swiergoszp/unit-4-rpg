@@ -32,7 +32,7 @@ header {
 }
 
 /* banner above fighter start */
-.banner , .banner3 {
+.banner , .banner3 , .game-message {
     color: rgb(41,195,180);
     margin: 0 0 10px 50px;
 }
@@ -40,6 +40,11 @@ header {
 .banner2 {
     color: rgb(176,15,71);
     margin: 0 0 10px 50px;
+}
+
+.character-image {
+    height: 75%;
+    width: 75%;
 }
 
 /* div that contains fighers at beginning */
@@ -77,4 +82,18 @@ header {
     text-align: center;
     color: rgb(176,15,71);
     font-family: StarWars
+}
+
+/* adjusts the attack button */
+.restartButton {
+    text-align: center;
+    color: rgb(176,15,71);
+    font-family: StarWars
+}
+
+/* in game messages */
+.game-message {
+    font-family: StarWars;
+    color: rgb(41,195,180);
+    margin-top: 20px;
 }
