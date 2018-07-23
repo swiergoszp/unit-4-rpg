@@ -5,11 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Star Wars RPG</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- JQuery $ -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <!-- Custom and Reset CSS -->
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
-    <script src="assets/javascript/game.js"></script>
 </head>
 <body>
 
@@ -21,63 +21,34 @@
         <!-- div holds games instructions that appear on click -->
         <div class="bannerBar">
             <h2 class="banner">choose your legend to begin:</h2>
-            <h2 class="banner2 invisible">choose your first enemy:</h2>
+            <h2 class="banner2 invisible">choose your enemy:</h2>
             <h2 class="banner3 invisible">click attack to begin the battle:</h2>
         </div>
 
-        <!-- top div that holds fighter options -->
-        <div class="fighterStart">
-            <!-- each figure holds initial data for fighters -->
-            <figure class="legend luke">            
-                <img src="assets/images/nWC25HX79HEF1.jpg" alt="luke skywalker looking BA with an explosion in the background">
-                <br>
-                <figcaption>
-                    <p class="lukeName"></p>
-                    <p class="lukeHealth"></p>
-                    <p class="lukeAttack"></p>
-                </figcaption>
-            </figure>
-            <figure class="legend vader">            
-                <img src="assets/images/images.jpg" alt="darth vader">
-                <br>
-                <figcaption>
-                    <p class="vaderName"></p>
-                    <p class="vaderHealth"></p>
-                    <p class="vaderAttack"></p>
-                </figcaption>
-            </figure>
-            <figure class="legend windu">            
-                <img src="assets/images/download.jpg" alt="mace windu">
-                <br>
-                <figcaption>
-                    <p class="winduName"></p>
-                    <p class="winduHealth"></p>
-                    <p class="winduAttack"></p>
-                </figcaption>
-            </figure>
-            <figure class="legend revan">            
-                <img src="assets/images/download-1.jpg" alt="darth revan">
-                <br>
-                <figcaption>
-                    <p class="revanName"></p>
-                    <p class="revanHealth"></p>
-                    <p class="revanAttack"></p>
-                </figcaption>
-            </figure>
-        </div>
+        <!-- top div that holds fighters -->
+        <div class="row justify-content-around fighterStart"></div>
+        <div class="row justify-content-around challengers"></div>
 
         <!-- div where the fighters move to after selected -->
-        <div class="battleArea">
+        <div class="row justify-content-between battleArea">
             <div class="userArea"></div>
             <div class="defenderArea"></div>
         </div>
 
         <!-- attack button, appears when needed -->
-        <div class="button">
+        <div class="row justify-contenr-center button">
             <button type="button" class="attackButton invisible">Attack</button>
         </div>
 
     </main>
+
+<!-- JQuery $ -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<!-- Bootstrap -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script><!-- Custom JS -->
+<!-- Custom JS -->
+<script src="assets/javascript/game.js"></script>
 
 </body>
 </html>

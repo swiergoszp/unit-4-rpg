@@ -1,198 +1,148 @@
-// 1. user selects their character to begin game
-
-    // a. users character moves from current div to new div
-    // b. banner changes to select enemy
-
-// 2. user selects charcter to begin battling
-
-    // a. enemy character moves from current div to new div
-    // b. attack button appears
-    // c. banner changes to click attack
-
-// 3. user starts fight on attack press
-
-    // a. banner disappears
-    // b. hp and at of player decrease/increase
-    // c. enemy hp goes down
-    // d. rinse and repeat until win or loss protocol
-
-// On User Win/Loss
-
-    // 1. write result
-    // 2. restart button appear
-
 $(document).ready(function() {
 
-    var luke = {
-        photo:"../images/nWC25HX79HEF1.jpg" ,
-        name: "Luke Skywalker",
-        health: 120,
-        attack: 20,
-        counterAttack: 5    
-    }
-    $(".lukeName").html(luke.name);
-    $(".lukeHealth").html("HP: " + luke.health);
-    $(".lukeAttack").html("AT: " + luke.attack);
+//******************************************************************************//
+// Global Variables
+//******************************************************************************//
 
-    var vader = {
-        photo:"../images/images.jpg" ,
-        name: "Darth Vader",
-        health: 140,
-        attack: 15,
-        counterAttack: 10
-    }
-    $(".vaderName").html(vader.name);
-    $(".vaderHealth").html("HP: " + vader.health);
-    $(".vaderAttack").html("AT: " + vader.attack);
+    var legends = {
+        "Luke Skywalker": {
+            image: "assets/images/luke.jpg" ,
+            name: "Luke Skywalker",
+            health: 120,
+            attack: 20,
+            counterAttack: 5    
+        },
+        "Darth Vader": {
+            image:"assets/images/vader.jpg" ,
+            name: "Darth Vader",
+            health: 140,
+            attack: 15,
+            counterAttack: 10
+        },
+        "Mace Windu": {
+            image:"assets/images/windu.jpg" ,
+            name: "Mace Windu",
+            health: 160,
+            attack: 10,
+            counterAttack: 15
+        },
+        "Darth Revan": {
+            image:"assets/images/revan.jpg" ,
+            name: "Darth Revan",
+            health: 180,
+            attack: 5,
+            counterAttack: 20
+        }
+    };
 
-    var windu = {
-        photo:"../images/download.jpg" ,
-        name: "Mace Windu",
-        health: 160,
-        attack: 10,
-        counterAttack: 15
-    }
-    $(".winduName").html(windu.name);
-    $(".winduHealth").html("HP: " + windu.health);
-    $(".winduAttack").html("AT: " + windu.attack);
-
-    var revan = {
-        photo:"../images/download-1.jpg" ,
-        name: "Darth Revan",
-        health: 180,
-        attack: 5,
-        counterAttack: 20
-    }
-    $(".revanName").html(revan.name);
-    $(".revanHealth").html("HP: " + revan.health);
-    $(".revanAttack").html("AT: " + revan.attack);
-
-
-    // array of legends
+    var userLegend;
+    var enemyLegend;
     var arrLegends = [];
+    // Will keep track of turns during combat. Used for calculating player damage.
+    var turnCounter = 1;
+    // Tracks number of defeated opponents.
+    var killCount = 0;
 
-    // array that holds user fighter
-    var arrUser = [];
+//******************************************************************************//
+// "Game Initialize" Phase
+//******************************************************************************//
 
-    // array for enemy fighter
-    var arrEnemy = [];
+    function initializeCharacters(character, renderArea) {
+        // builds the character card and renders it to the page
+        var charDiv = $("<div class='character' data-name='" + character.name + "'>");
+        var charImage = $("<img alt='image' class='character-image'>").attr("src", character.image);
+        var charName = $("<div class='character-name'>").text(character.name);
+        var charHealth = $("<div class='character-health'>").text("HP: " + character.health);
+        var charAttack = $("<div class='character-attack'>").text("AT: " + character.attack);
+        charDiv.append(charImage).append(charName).append(charHealth).append(charAttack);
+        $(renderArea).append(charDiv);
+    };
 
-    // $(".luke").html(luke);
-
-
+    // makes character cards and resets game
     function initializeGame() {
-
-        arrUser = [];
-        arrEnemy = [];
-        arrLegends.push(luke , vader , windu , revan);
-        console.log(arrLegends);
-
+        for (var key in legends) {
+            initializeCharacters(legends[key], ".fighterStart");
+        }
     };
-
-   function playerSelect() {
-
-        if (arrUser.length === 1){
-            $(".banner2").addClass("invisible");
-            $(".banner3").removeClass("invisible"); // "banner" changes instructions
-            arrLegends.splice(this.index);
-            arrEnemy.push(this);
-            console.log(arrEnemy);
-        }
-            else {
-                $(".banner").addClass("invisible");
-                $(".banner2").removeClass("invisible"); // "banner" changes instructions
-                arrLegends.slice(this.index);
-                arrUser.push(this);
-                console.log(this);
-                console.log(arrUser);
-            };
-
-    };
-
-    $(".luke").click(function() {
-
-        // proto player select if else
-        if (".userArea" === -1) {
-            // progresses instructons
-            $(".banner").addClass("invisible");
-            $(".banner2").removeClass("invisible");
-            // changes DOM
-            $(".luke").appendTo(".userArea");
-            // return true
-
-        }
-            else {
-                $(".banner2").addClass("invisible");
-                $(".banner3").removeClass("invisible");
-                $(".luke").appendTo(".defenderArea");
-            };
-            
-    });
-
-    $(".vader").click(function() {
-
-        // proto player select if else
-        if (".userArea" === -1) {
-            // progresses instructons
-            $(".banner").addClass("invisible");
-            $(".banner2").removeClass("invisible");
-            // changes DOM
-            $(".vader").appendTo(".userArea");
-            // return true
-
-        }
-            else {
-                $(".banner2").addClass("invisible");
-                $(".banner3").removeClass("invisible");
-                $(".vader").appendTo(".defenderArea");
-            };
-            
-    });
-    $(".windu").click(function() {
-
-        // proto player select if else
-        if (".userArea" === -1) {
-            // progresses instructons
-            $(".banner").addClass("invisible");
-            $(".banner2").removeClass("invisible");
-            // changes DOM
-            $(".windu").appendTo(".userArea");
-            // return true
-
-        }
-            else {
-                $(".banner2").addClass("invisible");
-                $(".banner3").removeClass("invisible");
-                $(".windu").appendTo(".defenderArea");
-            };
-            
-    });
-    $(".revan").click(function() {
-
-        // proto player select if else
-        if (".userArea" === -1) {
-            // progresses instructons
-            $(".banner").addClass("invisible");
-            $(".banner2").removeClass("invisible");
-            // changes DOM
-            $(".revan").appendTo(".userArea");
-            // return true
-
-        }
-            else {
-                $(".banner2").addClass("invisible");
-                $(".banner3").removeClass("invisible");
-                $(".revan").appendTo(".defenderArea");
-            };
-            
-    });
-
-
-    // $(".attackButton").click(function() {
-
-
-    // });
 
     initializeGame();
+
+//******************************************************************************//
+//
+//******************************************************************************//
+
+    // updates character placement
+    function updateCharacter(charObj, areaRender) {
+        $(areaRender).empty();
+        initializeCharacters(charObj, areaRender);
+    };
+
+    // renders the available-to-attack enemies
+    function renderEnemies(array) {
+        for (var i = 0; i < array.length; i++) {
+        initializeCharacters(array[i], ".challengers");
+        }
+    };
+
+    // Function which handles restarting the game after victory or defeat.
+    function restartGame(resultMessage) {
+        // When the 'Restart' button is clicked, reload the page.
+        var restart = $("<button>Restart</button>").click(function() {
+            location.reload();
+        });
+
+        // Build div that will display the victory/defeat message.
+        var gameState = $("<div>").text(resultMessage);
+
+        // Render the restart button and victory/defeat message to the page.
+        $(".button").append(gameState);
+        $(".button").append(restart);
+    };
+
+//******************************************************************************//
+// Click Functions
+//******************************************************************************//
+
+     // On click event for selecting our character.
+    $(".fighterStart").on("click", ".character", function() {
+        // Saving the clicked character's name.
+        var name = $(this).attr("data-name");
+
+        // If a player character has not yet been chosen...
+        if (!userLegend) {
+            // We populate attacker with the selected character's information.
+            userLegend = legends[name];
+            // We then loop through the remaining characters and push them to the combatants array.
+            for (var key in legends) {
+                if (key !== name) {
+                arrLegends.push(legends[key]);
+                }
+            }
+
+            $(".fighterStart").hide();
+            $(".banner").addClass("invisible");
+            $(".banner2").removeClass("invisible");
+
+            // Then render our selected character and our combatants.
+            updateCharacter(userLegend, ".userArea");
+            renderEnemies(arrLegends);
+        }
+    });
+
+    // Creates an on click event for each enemy.
+    $(".challengers").on("click", ".character", function() {
+        // Saving the opponent's name.
+        var name = $(this).attr("data-name");
+
+        // If there is no defender, the clicked enemy will become the defender.
+        if ($(".defenderArea").children().length === 0) {
+            enemyLegend = legends[name];
+            updateCharacter(enemyLegend, ".defenderArea");
+            $(this).remove();
+            $(".banner2").addClass("invisible");
+            $(".banner3").removeClass("invisible");
+            $("attackButton").removeClass("invisible");
+        }
+    });
 
 });
